@@ -12,6 +12,7 @@
           @mouseover="dragDay(dayObj)"
           @mousedown="mouseDown(dayObj)"
           class="day"
+          :style="styleDay(dayObj)"
           :class="classList(dayObj)">{{ dayObj.value }}</div>
       </div>
     </div>
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+ /* eslint-disable */
 import dayjs from 'dayjs'
 export default {
   name: 'month-calendar',
@@ -80,6 +82,13 @@ export default {
     }
   },
   methods: {
+    styleDay(day){
+      if (day.active === true) {
+        return {
+          'background-color': day.color
+        }
+      }
+    },
     initCalendar () {
       if (!this.year || !this.month) return []
       const activeMonth = dayjs()
@@ -108,11 +117,11 @@ export default {
       // 把 toggleDate 的內容合併在 initCalendar 裡。
       this.activeDates.forEach(date => {
         let oDate
-
         if (typeof date === 'string') {
           oDate = {
             date: date,
-            className: this.activeClass
+            className: this.activeClass,
+            color: date.color
           }
         } else if (typeof date === 'object') {
           oDate = date
@@ -125,6 +134,7 @@ export default {
         let activeArrayKey = (activeDate % 7) - 1 + firstDay + 7 * row
         this.showDays[activeArrayKey].active = true // to array index
         this.showDays[activeArrayKey].className = oDate.className
+        this.showDays[activeArrayKey].color = oDate.color
       })
     },
     showDayTitle (day) {

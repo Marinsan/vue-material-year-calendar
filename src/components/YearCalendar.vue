@@ -118,17 +118,18 @@ export default {
       const month = {}
       this.activeDates.forEach(date => {
         let oDate
-
         if (typeof date === 'string') {
           oDate = {
             date: date,
-            className: this.activeClass
+            className: this.activeClass,
+            color: date.color
           }
         } else {
           // 若 activeDate 裡的物件少了 className 屬性，就自動填入空字串。否則會變成undefined
           oDate = {
             date: date.date,
-            className: date.className || ''
+            className: date.className || '',
+            color: date.color || ''
           }
         }
 
@@ -161,7 +162,8 @@ export default {
       this.$emit('toggleDate', {
         date: activeDate,
         selected: dateObj.selected,
-        className: dateObj.className
+        className: dateObj.className,
+        color: dateObj.color
       })
 
       let dateIndex
@@ -173,7 +175,8 @@ export default {
       } else {
         let oDate = {
           date: activeDate,
-          className: dateObj.className // 原為 this.defaultClassName ，修正bug(丁丁)
+          className: dateObj.className, // 原為 this.defaultClassName ，修正bug(丁丁)
+          color: dateObj.color
         }
 
         dateIndex = this.activeDates.indexOf(this.activeDates.find((i) => i.date === activeDate))

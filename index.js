@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import YearCalendar from './src/components/YearCalendar.vue'
 export default YearCalendar
 if (typeof window !== 'undefined' && window.Vue) {
